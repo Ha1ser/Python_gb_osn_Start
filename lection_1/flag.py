@@ -11,4 +11,3 @@ while flag:
         print(n)
         flag = False
     i += 1
-    
