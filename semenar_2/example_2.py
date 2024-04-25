@@ -21,3 +21,5 @@ while num3 < num:
         k = -1
 print(k)
 
+
+
