@@ -8,9 +8,9 @@
 # a, b, c = 3, 2, 4 -> yes
 # a, b, c = 3, 2, 1 -> no
 
-a = 3
-b = 2
-c = 4
+a = 4
+b = 3
+c = 8
 
 
 if a * b > c and (a * c) % b == 0 or (b * c) % a == 0:
