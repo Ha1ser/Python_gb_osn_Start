@@ -12,16 +12,26 @@
 # n = 385916 -> yes
 # n = 123456 -> no
 
-n = int(input())
+# n = int(input())
 
-n1 = n // 100000
-n2 = n // 10000 % 10
-n3 = n // 1000 % 10
-n4 = n // 100 % 10
-n5 = n // 10 % 10
-n6 = n % 10
+# n1 = n // 100000
+# n2 = n // 10000 % 10
+# n3 = n // 1000 % 10
+# n4 = n // 100 % 10
+# n5 = n // 10 % 10
+# n6 = n % 10
 
-if n1 + n2 + n3 == n4 + n5 + n6:
-    print("yes")
+# if n1 + n2 + n3 == n4 + n5 + n6:
+#     print("yes")
+# else:
+#     print("no")
+
+n = 123456
+
+a = str(n)
+n1= int(a[0]) + int(a[1]) + int(a[2])
+n2 = int(a[3]) + int(a[4]) + int(a[5])
+if n1 == n2:
+    print('yes')
 else:
-    print("no")
+    print('no')
