@@ -7,4 +7,3 @@ elif username == 'Андрей':
     print('Андрей, топ')
 else:
     print("привет, ", username)
-    
