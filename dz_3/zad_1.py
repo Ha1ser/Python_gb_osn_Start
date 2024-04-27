@@ -9,11 +9,17 @@
 # k = 3
 # # 1
 
-list_1 = [3, 1, 2, 3, 4, 5, 3, 1]
-k = 1
-res = 0
+# 1 способ
+# list_1 = [3, 1, 2, 3, 4, 5, 3, 1]
+# k = 1
+# res = 0
 
-for i in range(len(list_1)):
-    if list_1[i] == k:
-        res = res + 1
-print(res)
+# for i in range(len(list_1)):
+#     if list_1[i] == k:
+#         res = res + 1
+# print(res)
+
+# 2 способ
+list_1 = [3, 1, 2, 3, 4, 5, 3, 1]
+k = 3
+print(list_1.count(k))
