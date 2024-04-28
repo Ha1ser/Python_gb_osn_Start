@@ -421,3 +421,171 @@ print(t) # [1, 3, 4]
 t[0] = 2
 print(t) # [2, 3, 4]
 `````` 
+
+# Инфо (из лекции 3)
+# Функции, рекурсия, алгоритмы
+
+## Функции 
+**Функция — это фрагмент программы, используемый многократно.**
+
+```Python
+def function_name(x): # создание функции
+ # body line 1
+ # ...
+ # body line n
+ # optional return
+ ```
+`def` — создание функции
+
+`return` — возвращает значение из функции, **завершает функцию**.
+
+```Python
+def sumNumbers(n, y = "qwerty"): # передаём аргумент y но не вызываем его
+    print(y)
+    sum = 0
+    for i in range(1, n+1):
+        sum += i 
+    return sum
+
+a = (sumNumbers(5))
+print(a) 
+
+
+def sumNumbers(n, y = "qwerty"): # передаём аргумент и вызываем его
+    print(y)
+    sum = 0
+    for i in range(1, n+1):
+        sum += i 
+    return sum
+
+a = (sumNumbers(5, y = "ffff"))
+print(a) 
+```
+
+```Python
+def sum_str(*args): 
+    res = ''
+    for i in args:
+        res += i
+    return res
+
+print(sum_str('q', 'w', 'e', 'r', 't', 'y'))
+```
+`(*args)` — с помощью * можем передовать неограниченное кол-во аргументов 
+
+## Модульность
+
+* если в одном файле сохранить функции, то этот файл с функциями можно вызвать в другом файле. С помощью `import`
+
+```Python
+# 1 СПОСОБ
+#создаём в 1 файле
+def max1(a, b):
+    if a > b:
+        return a
+    return b
+
+#запускаю во 2 файле
+import modul
+print(modul.max1(5, 9)) 
+
+# 2 СПОСОБ
+#создаём в 1 файле
+def max1(a, b):
+    if a > b:
+        return a
+    return b
+
+#запускаю во 2 файле
+from modul import max1
+print(max1(5, 9)) 
+```
+
+```Python
+from modul import * # импортируем все функции из файла modul
+print(max1(10, 9))
+```
+
+```Python
+import modul as m1 # на время можно изменить имя импортируемого файла
+print(m1.max1(10, 9))
+```
+
+## Рекурсия
+
+**Рекурсия — это функция, вызывающая сама себя.**
+
+*При описании рекурсии важно указать, когда функции надо остановиться и
+перестать вызывать саму себя. По-другому говоря, необходимо указать базис
+рекурсии*
+
+```python
+def fib(n):  # последовательность фибоначчи 
+    if n in [1, 2]:
+        return 1
+    return fib(n - 1) + fib(n - 2)
+
+list_1 = []
+for i in range(1, 10):
+    list_1.append(fib(i))
+print(list_1)
+```
+
+## Алгоритмы 
+
+**Алгоритмом называется набор инструкций для выполнения
+некоторой задачи.**
+
+* **Быстрая сортировка** — Быстрая сортировка принадлежит такой стратегии, как “разделяй и властвуй”. 
+![быстрая сортировка](images/image-1.png) 
+ 
+
+```Python
+# Два друга решили поиграть в игру: один загадывает число от 1 до 100, 
+#другой должен отгадать.
+
+def quit_sort(array):
+    if len(array) <= 1:
+        return array
+    else:
+        pivot = array[0]
+    less = [i for i in array[1:] if i <= pivot]
+    greater = [i for i in array[1:] if i > pivot]
+    return quit_sort(less) + [pivot] + quit_sort(greater)
+
+print(quit_sort([14, 5, 9, 1, 3, 4, 5, 6])) # [1, 3, 4, 5, 5, 6, 9, 14]
+```
+
+* **Сортировка слиянием —** 
+```Python
+def merge_sort(nums):
+    if len(nums) > 1:
+        mid = len(nums) // 2
+        left = nums[:mid]
+        right = nums[mid:]
+        merge_sort(left)
+        merge_sort(right)
+        i = j = k = 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                nums[k] = left[i]
+                i += 1
+            else:
+                nums[k] = right[j]
+                j += 1
+            k += 1
+
+        while i < len(left):
+            nums[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            nums[k] = right[j]
+            j += 1
+            k += 1
+
+list1 = [1, 3, 5, 7, 65, 6, 66, 345, 5435, 543, 4]
+merge_sort(list1)
+print(list1)  # [1, 3, 4, 5, 6, 7, 65, 66, 345, 543, 5435]
+```
