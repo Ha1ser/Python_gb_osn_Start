@@ -902,9 +902,76 @@ import shutil*
 ● **shutil.rmtree(path)** - Удаляет текущую директорию и все поддиректории; path должен указывать на
 директорию, а не на символическую ссылку(с этой командой нужно работать АКУРАТНО, т.к можно случайно повредить файлы компьютера)
 
+# Инфо (из лекции 5)
+# Google Colad(Jupyter). Знакомство с аналитикой
 
+## Базовые функции для работы с данными
+**Библиотека pandas** может читать многие форматы, включая: .csv,
+.xslx, .xls, .txt, sql и многие другие. 
 
+Чтобы подключить библиотеку к Вашей программе необходимо
+написать следующее:
+`import pandas as pd`
+Напоминание: as(alias) - псевдоним. Мы можем сократить название
+все библиотеки до 2-х букв.
+Прочтем файл .csv(он находится в Google Colab в папке sample_data) с
+помощью библиотеки pandas
+`df = pd.read_csv('sample_data/california_housing_train.csv')`
 
+**команды для вывода данных в google colab:**<br>
+1. `.read()` — считывает данные из файла
+2. `head()` — выводит первые элементы файла. в () можно указать кол-во элементов
+3. `.tail()` — выводит последние элементы файла. в () можно указать кол-во элементов
+4. `.shape` — выводит кол-во строк и столбцов
+5. `.isnull()` — проверяет есть ли у нас не заполненные ячейки таблицы(если нет то False, если есть то True)
+6. `.isnull().sum()` — подсчитывает сумму и выводит результат(если есть не заполненные ячейки то будет 1 иначе 0) данный способ работает быстрее чем просто `.isnull()`
+7. `.dtypes` — выводит тип данных 
+8. `.columns` — название всех столбцов 
+9. `['название столбца, название столбца2']` — вывод данных из задонного(-ых) столбца(-ов) 
+10. `&` — and
+11. `|` — or    
 
+```python
+import pandas as pd
+df = pd.read_csv('sample_data/california_housing_train.csv')
+df.head() 
+df.tail() 
+df.shape
+df.isnull()
+df.isnull().sum() 
+df.dtypes
+df.columns 
+# выборака данных
+df['latitude']
 
+#задание: вывести столбец total_rooms, у которого возраст здания(housing_median_age) < 20. 
+df[df['housing_median_age'] < 20]['total_rooms'] 
 
+#+
+df[(df['housing_median_age'] < 20) & (df['housing_median_age'] > 10)]['total_rooms'] 
+
+df[(df['housing_median_age'] < 20) & (df['housing_median_age'] > 10)][['total_rooms', 'housing_median_age', 'population', 'longitude']]
+
+#простая статистика
+print(df['population'].max()) #максимальное значение столбца
+print(df['population'].min())
+print(df['population'].mean()) #среднее значение столбца
+print(df['population'].sum()) #сумма всех значений 
+print(df['population'].median()) #среднее орефметическое  
+df.describe() # вывод всей вышеперечисленной статистики 
+```  
+
+**Библиотека seaborn** — отображает граффики из таблиц, принимает библиотеку pandas
+1. `Scatterplot` — Точечный график
+2. `` — 
+
+```Python
+import seaborn as sns
+sns.scatterplot(data=df, x="longitude", y="latitude")
+sns.scatterplot(data=df, x="households", y="population", hue="total_rooms", size=10)
+
+#2 вывод всех возможных граффиков 
+cols = ['population', 'median_income', 'housing_median_age', 'median_house_value']
+g = sns.PairGrid(df[cols])
+g.map(sns.scatterplot) 
+```
